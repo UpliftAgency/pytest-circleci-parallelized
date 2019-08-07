@@ -83,7 +83,7 @@ def pytest_collection_modifyitems(session, config, items):
     filtered_tests = filter_tests_with_circleci(class_mapping.keys())
 
     new_items = []
-    for name in filtered_tests:
+    for name in set(filtered_tests):
         new_items.extend(class_mapping[name])
 
     items[:] = new_items
