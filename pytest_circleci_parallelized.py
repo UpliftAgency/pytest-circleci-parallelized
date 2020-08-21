@@ -68,12 +68,16 @@ def pytest_collection_modifyitems(session, config, items):
     class_mapping = collections.defaultdict(list)
     for item in items:
         class_name = get_class_name(item)
+        if not class_name:
+            continue
         class_mapping[class_name].append(item)
 
     filtered_tests = filter_tests_with_circleci(class_mapping.keys())
 
     new_items = set()
     for name in filtered_tests:
+        if not name:
+          continue
         new_items.add(class_mapping[name])
 
     items[:] = list(new_items)
