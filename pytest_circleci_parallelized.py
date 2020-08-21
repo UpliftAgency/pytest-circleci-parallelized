@@ -78,6 +78,12 @@ def pytest_collection_modifyitems(session, config, items):
     for name in filtered_tests:
         if not name:
           continue
-        new_items.add(class_mapping[name])
+        try:
+            new_items.add(class_mapping[name])
+        except Exception as e:
+            print("Class mapping and name")
+            print(name)
+            print(class_mapping[name])
+            continue
 
     items[:] = list(new_items)
